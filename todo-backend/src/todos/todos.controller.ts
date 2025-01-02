@@ -6,11 +6,12 @@ import {
   Delete,
   Body,
   Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { Todo } from '@prisma/client';
 
-@Controller('Todos')
+@Controller('todos')
 export class TodosController {
   constructor(private todosService: TodosService) {}
 
@@ -26,16 +27,14 @@ export class TodosController {
 
   @Patch(':id')
   async updateTodo(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() data: Partial<Todo>,
   ): Promise<Todo> {
-    const todoId = parseInt(id, 10);
-    return this.todosService.updateTodo(todoId, data);
+    return this.todosService.updateTodo(id, data);
   }
 
   @Delete(':id')
-  async deleteTodo(@Param('id') id: string): Promise<Todo> {
-    const todoId = parseInt(id, 10);
-    return this.todosService.deleteTodo(todoId);
+  async deleteTodo(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
+    return this.todosService.deleteTodo(id);
   }
 }
