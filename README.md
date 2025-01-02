@@ -12,6 +12,8 @@ Caso queira rodar o projeto sem Docker, entre nas 2 pastas e rode o comando `npm
 
 Na pasta backend:
 > `npm run start:dev`
+> `npx prisma generate`
+> `npx prisma migrate deploy`
 
 Na pasta frontend:
 > `npm start`
