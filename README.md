@@ -11,11 +11,11 @@ Aplicativo de administração de tarefas simples feito como parte do processo se
 Caso queira rodar o projeto sem Docker, entre nas 2 pastas e rode o comando `npm install --force` em cada uma. Após isso, rode os seguintes comandos:
 
 Na pasta backend:
-> `npm run start:dev`
-
 > `npx prisma generate`
 
 > `npx prisma migrate deploy`
+
+> `npm run start:dev` 
 
 Na pasta frontend:
 > `npm start`
