@@ -26,14 +26,16 @@ export class TodosController {
 
   @Patch(':id')
   async updateTodo(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() data: Partial<Todo>,
   ): Promise<Todo> {
-    return this.todosService.updateTodo(id, data);
+    const todoId = parseInt(id, 10);
+    return this.todosService.updateTodo(todoId, data);
   }
 
   @Delete(':id')
-  async deleteTodo(@Param('id') id: number): Promise<Todo> {
-    return this.todosService.deleteTodo(id);
+  async deleteTodo(@Param('id') id: string): Promise<Todo> {
+    const todoId = parseInt(id, 10);
+    return this.todosService.deleteTodo(todoId);
   }
 }
