@@ -392,9 +392,13 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-=======
 # Local
 .env
 dist
 .webpack
 .serverless/**/*.zip
+
+node_modules/
+prisma/.env
+prisma/dev.db
+prisma/dev.db-journal
