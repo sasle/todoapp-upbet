@@ -8,6 +8,14 @@ Aplicativo de administração de tarefas simples feito como parte do processo se
  - NPM v10.5.0
  - Docker
 
+Caso queira rodar o projeto sem Docker, entre nas 2 pastas e rode o comando `npm install --force` em cada uma. Após isso, rode os seguintes comandos:
+
+Na pasta backend:
+> `npm run start:dev`
+
+Na pasta frontend:
+> `npm start`
+
 # Estrutura
 
 O projeto foi dividido em 2 pastas: uma para o frontend (denominada todo-client) e outra para o backend (denominada todo-backend). Cada uma contém sua Dockerfile, e na raiz do projeto (acima das duas pastas), há um docker-compose para orquestrar a aplicação.
