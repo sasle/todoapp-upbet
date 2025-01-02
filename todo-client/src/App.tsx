@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from "react";
 import api from "./services/api";
+import TodoList from "./components/TodoList";
 
 export default function App() {
   const fetchApi = useCallback(async () => {
@@ -10,5 +11,5 @@ export default function App() {
     fetchApi();
   }, [fetchApi]);
 
-  return <p>Todo Frontend</p>;
+  return <TodoList />;
 }
