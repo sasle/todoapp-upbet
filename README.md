@@ -28,5 +28,5 @@ Como pedido, o aplicativo foi feito usando ReactJS (com Typescript), NestJS (tam
 
 # Instalação & Execução
 
-Para executar a aplicação, basta executar o docker compose na raiz do projeto, utilizando o comando:
+Para executar a aplicação, basta clonar a aplicação e executar o docker compose na raiz do projeto, utilizando o comando:
 > `docker-compose  up  --build`
