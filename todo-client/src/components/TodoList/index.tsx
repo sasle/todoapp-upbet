@@ -1,46 +1,33 @@
 import { useState, useEffect } from "react";
-import api from "../../services/api";
-import { Todo } from "../../types/todo";
 import "./styles.css"; // Import the CSS file
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../store";
+import {
+  fetchTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+} from "../../store/todoSlice";
 
 export default function TodoList() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const dispatch: AppDispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos);
   const [newTodo, setNewTodo] = useState<string>("");
 
   useEffect(() => {
-    fetchTodos();
-  }, []);
+    dispatch(fetchTodos());
+  }, [dispatch]);
 
-  async function fetchTodos() {
-    const response = await api.get<Todo[]>("/todos");
-    setTodos(response.data);
-  }
-
-  async function createTodo() {
-    await api.post("/todos", { title: newTodo });
+  const handleCreateTodo = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(createTodo({ title: newTodo }));
     setNewTodo("");
-    fetchTodos();
-  }
-
-  async function updateTodo(id: number, data: Partial<Todo>) {
-    await api.patch(`/todos/${id}`, data);
-    fetchTodos();
-  }
-
-  async function deleteTodo(id: number) {
-    await api.delete(`/todos/${id}`);
-    fetchTodos();
-  }
+  };
 
   return (
     <div className="todo-list-container">
       <h1>TODO List</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createTodo();
-        }}
-      >
+      <form onSubmit={handleCreateTodo}>
         <input
           type="text"
           value={newTodo}
@@ -56,11 +43,15 @@ export default function TodoList() {
               type="checkbox"
               checked={todo.completed}
               onChange={(e) =>
-                updateTodo(todo.id, { completed: e.target.checked })
+                dispatch(
+                  updateTodo({ id: todo.id, completed: e.target.checked })
+                )
               }
             />
             <span className="todo-title">{todo.title}</span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button onClick={() => dispatch(deleteTodo(todo.id))}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
