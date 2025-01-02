@@ -8,6 +8,13 @@ Aplicativo de administração de tarefas simples feito como parte do processo se
  - NPM v10.5.0
  - Docker
 
+# Instalação & Execução
+
+Para executar a aplicação, basta clonar a aplicação e executar o docker compose na raiz do projeto, utilizando o comando:
+> `docker-compose  up  --build`
+
+O frontend será disponibilizado na porta localhost 3000 e o backend na porta localhost 4000.
+
 Caso queira rodar o projeto sem Docker, entre nas 2 pastas e rode o comando `npm install --force` em cada uma. Após isso, rode os seguintes comandos:
 
 Na pasta backend:
@@ -19,13 +26,6 @@ Na pasta backend:
 
 Na pasta frontend:
 > `npm start`
-
-# Instalação & Execução
-
-Para executar a aplicação, basta clonar a aplicação e executar o docker compose na raiz do projeto, utilizando o comando:
-> `docker-compose  up  --build`
-
-O frontend será disponibilizado na porta localhost 3000 e o backend na porta localhost 4000.
 
 # Estrutura
 
