@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../services/api";
 import { Todo } from "../../types/todo";
+import "./styles.css"; // Import the CSS file
 
 export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -32,13 +33,22 @@ export default function TodoList() {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-      />
-      <button onClick={createTodo}>Create Todo</button>
+    <div className="todo-list-container">
+      <h1>TODO List</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          createTodo();
+        }}
+      >
+        <input
+          type="text"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          placeholder="Add new todo"
+        />
+        <button type="submit">Create Todo</button>
+      </form>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
@@ -49,7 +59,7 @@ export default function TodoList() {
                 updateTodo(todo.id, { completed: e.target.checked })
               }
             />
-            {todo.title}
+            <span className="todo-title">{todo.title}</span>
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
