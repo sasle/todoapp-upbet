@@ -3,6 +3,7 @@ import { TodosController } from './todos.controller';
 import { TodosService } from './todos.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Todo } from '@prisma/client';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 describe('TodosController', () => {
   let controller: TodosController;
@@ -52,6 +53,12 @@ describe('TodosController', () => {
 
       expect(await controller.createTodo('Test Todo')).toBe(result);
     });
+
+    it('should throw an error if title is not provided', async () => {
+      await expect(controller.createTodo('')).rejects.toThrow(
+        BadRequestException,
+      );
+    });
   });
 
   describe('updateTodo', () => {
@@ -66,11 +73,20 @@ describe('TodosController', () => {
       jest.spyOn(service, 'updateTodo').mockResolvedValue(result);
 
       expect(
-        await controller.updateTodo('1', {
+        await controller.updateTodo(1, {
           title: 'Updated Todo',
           completed: true,
         }),
       ).toBe(result);
+    });
+
+    it('should throw an error if todo is not found', async () => {
+      jest
+        .spyOn(service, 'updateTodo')
+        .mockRejectedValue(new NotFoundException());
+      await expect(
+        controller.updateTodo(1, { title: 'Updated Todo' }),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -85,7 +101,14 @@ describe('TodosController', () => {
       };
       jest.spyOn(service, 'deleteTodo').mockResolvedValue(result);
 
-      expect(await controller.deleteTodo('1')).toBe(result);
+      expect(await controller.deleteTodo(1)).toBe(result);
+    });
+
+    it('should throw an error if todo is not found', async () => {
+      jest
+        .spyOn(service, 'deleteTodo')
+        .mockRejectedValue(new NotFoundException());
+      await expect(controller.deleteTodo(1)).rejects.toThrow(NotFoundException);
     });
   });
 });

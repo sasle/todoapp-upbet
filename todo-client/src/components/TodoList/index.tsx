@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./styles.css"; // Import the CSS file
+import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store";
 import {
