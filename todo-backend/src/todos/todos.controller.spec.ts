@@ -66,7 +66,7 @@ describe('TodosController', () => {
       jest.spyOn(service, 'updateTodo').mockResolvedValue(result);
 
       expect(
-        await controller.updateTodo(1, {
+        await controller.updateTodo('1', {
           title: 'Updated Todo',
           completed: true,
         }),
@@ -85,7 +85,7 @@ describe('TodosController', () => {
       };
       jest.spyOn(service, 'deleteTodo').mockResolvedValue(result);
 
-      expect(await controller.deleteTodo(1)).toBe(result);
+      expect(await controller.deleteTodo('1')).toBe(result);
     });
   });
 });
